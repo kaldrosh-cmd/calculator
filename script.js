@@ -3,11 +3,27 @@ let operator = null;
 let secondNumber = '';
 let shouldResetDisplay = false;
 
+const backspaceButton = document.querySelector('#backspace');
+const backspace = function () {
+    if (operator === null) {
+        firstNumber = firstNumber.slice(0, -1);
+    } else {
+        secondNumber = secondNumber.slice(0, -1);
+    }
+    updateDisplay();
+};
+const decimalButton = document.querySelector('#decimal');
+const appendDecimal = function() {
+    if (operator === null && firstNumber.includes('.')) return;
+    if (secondNumber.includes('.')) return;
+    appendDigit('.');
+};
 const clearButton = document.querySelector('#clear');
 const clear = function() {
     firstNumber = "";
     operator = null;
     secondNumber = "";
+    shouldResetDisplay = false;
     updateDisplay();
 };
 
@@ -95,7 +111,7 @@ const equalsButton = document.querySelector('#equals');
 
 const evaluate = function() {
     if (operator === null || secondNumber === "") return;
-    if (operator === '/' && secondNumber === '0') {
+    if (operator === '/' && Number(secondNumber) === 0) {
         clear();
         display.textContent = 'Nice try 😏';
         return;
@@ -112,6 +128,8 @@ const evaluate = function() {
 
 equalsButton.addEventListener('click', evaluate);
 clearButton.addEventListener('click', clear);
+decimalButton.addEventListener('click', appendDecimal);
+backspaceButton.addEventListener('click', backspace);
 
 
 
