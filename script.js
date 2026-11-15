@@ -109,7 +109,7 @@ const evaluate = function() {
     shouldResetDisplay = true;
     updateDisplay();
 };
-g
+
 equalsButton.addEventListener('click', evaluate);
 clearButton.addEventListener('click', clear);
 
